@@ -8,14 +8,14 @@ import ListingDetail from "./ListingDetail";
 export default function App() {
   const theme = createTheme({
     palette: {
-      mode: "dark"
-    }
+      mode: "dark",
+    },
   });
 
   return (
-    <ContextProvider>
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
+    <BrowserRouter>
+      <ContextProvider>
+        <ThemeProvider theme={theme}>
           <CssBaseline>
             <Header />
             <Routes>
@@ -23,8 +23,8 @@ export default function App() {
               <Route path=":id" element={<ListingDetail />} />
             </Routes>
           </CssBaseline>
-        </BrowserRouter>
-      </ThemeProvider>
-    </ContextProvider>
+        </ThemeProvider>
+      </ContextProvider>
+    </BrowserRouter>
   );
 }

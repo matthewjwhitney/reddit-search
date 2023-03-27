@@ -1,16 +1,19 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import SearchForm from "./SearchForm";
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+
+const LinkBehavior = React.forwardRef((props, ref) => (
+  <Link ref={ref} to="/" {...props} role={undefined} />
+));
 
 export default function Header() {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" sx={{ mr: 3 }}>
-          reddit-search
-        </Typography>
+        <Button component={LinkBehavior}>reddit-search</Button>
         <SearchForm />
       </Toolbar>
     </AppBar>
