@@ -13,7 +13,9 @@ export default function Header() {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Button component={LinkBehavior}>reddit-search</Button>
+        <Button component={LinkBehavior} sx={{ mr: { xs: 2, sm: 3 } }}>
+          reddit-search
+        </Button>
         <SearchForm />
       </Toolbar>
     </AppBar>
