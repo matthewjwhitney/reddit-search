@@ -12,15 +12,7 @@ import useDebounce from "./useDebounce";
 const Context = createContext();
 
 export const ContextProvider = (props) => {
-  const categories = [
-    "hot",
-    "new",
-    "random",
-    "rising",
-    "top",
-    "best",
-    "controversial",
-  ];
+  const categories = ["hot", "new", "top", ,];
   const [listings, setListings] = useState([]);
   const [searchString, setSearchString] = useState("");
   const debouncedSearchString = useDebounce(searchString, 500);
@@ -44,27 +36,30 @@ export const ContextProvider = (props) => {
     const response = await fetch(`https://api.reddit.com/${category}.json`);
     const data = await response.json();
     setListings(data.data.children);
-  }, []);
+  }, [category]);
 
   const getPostsBySearchString = useCallback(async () => {
     console.log("getPostsBySearchString");
     if (pathname !== "/") {
       navigate("/");
     }
+    console.log(debouncedSearchString);
     if (debouncedSearchString) {
       const response = await fetch(
-        `https://www.reddit.com/search.json?q=${debouncedSearchString}`
+        `https://www.reddit.com/search.json?q=${debouncedSearchString}&sort=${category}`
       );
       const data = await response.json();
       setListings(data.data.children);
     } else {
       getHotPosts();
     }
-  }, [debouncedSearchString, getHotPosts]);
+  }, [debouncedSearchString, getHotPosts, category]);
 
   useEffect(() => {
-    getHotPosts();
-  }, [getHotPosts]);
+    if (!searchString) {
+      getHotPosts();
+    }
+  }, [getHotPosts, category]);
 
   useEffect(() => {
     if (didMount.current) {
@@ -72,7 +67,7 @@ export const ContextProvider = (props) => {
     } else {
       didMount.current = true;
     }
-  }, [debouncedSearchString, getPostsBySearchString]);
+  }, [debouncedSearchString, getPostsBySearchString, category]);
 
   const providerValue = useMemo(
     () => ({

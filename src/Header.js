@@ -13,9 +13,12 @@ const LinkBehavior = React.forwardRef((props, ref) => (
 export default function Header() {
   return (
     <AppBar position="static">
-      <Toolbar>
-        <Button component={LinkBehavior} sx={{ mr: { xs: 2, sm: 3 } }}>
-          reddit-search
+      <Toolbar disableGutters>
+        <Button
+          component={LinkBehavior}
+          sx={{ mx: { xs: 1, sm: 2 }, textAlign: "center" }}
+        >
+          reddit search
         </Button>
         <SearchForm />
         <CategorySelect />

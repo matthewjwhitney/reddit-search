@@ -9,9 +9,12 @@ export default function CategorySelect() {
     <Select
       value={category}
       onChange={(event) => handleChangeCategory(event.target.value)}
+      size="small"
     >
       {categories.map((c) => (
-        <MenuItem value={c}>{c}</MenuItem>
+        <MenuItem key={c} value={c}>
+          {c}
+        </MenuItem>
       ))}
     </Select>
   );
