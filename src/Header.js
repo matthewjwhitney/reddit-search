@@ -4,6 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import SearchForm from "./SearchForm";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
+import CategorySelect from "./CategorySelect";
 
 const LinkBehavior = React.forwardRef((props, ref) => (
   <Link ref={ref} to="/" {...props} role={undefined} />
@@ -17,6 +18,7 @@ export default function Header() {
           reddit-search
         </Button>
         <SearchForm />
+        <CategorySelect />
       </Toolbar>
     </AppBar>
   );
