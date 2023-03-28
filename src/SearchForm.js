@@ -11,6 +11,7 @@ export default function SearchForm() {
       size="small"
       value={searchString}
       onChange={(event) => handleChangeSearchString(event.target.value)}
+      sx={{ mr: { xs: 1, sm: 2 } }}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
