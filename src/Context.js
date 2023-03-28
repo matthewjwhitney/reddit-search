@@ -12,21 +12,36 @@ import useDebounce from "./useDebounce";
 const Context = createContext();
 
 export const ContextProvider = (props) => {
+  const categories = [
+    "hot",
+    "new",
+    "random",
+    "rising",
+    "top",
+    "best",
+    "controversial",
+  ];
   const [listings, setListings] = useState([]);
   const [searchString, setSearchString] = useState("");
   const debouncedSearchString = useDebounce(searchString, 500);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const didMount = useRef(false);
+  const [category, setCategory] = useState(categories[0]);
 
   const handleChangeSearchString = useCallback(
-    (event) => setSearchString(event.target.value),
+    (newSearchString) => setSearchString(newSearchString),
+    []
+  );
+
+  const handleChangeCategory = useCallback(
+    (newCategory) => setCategory(newCategory),
     []
   );
 
   const getHotPosts = useCallback(async () => {
     console.log("getHotPosts");
-    const response = await fetch(`https://api.reddit.com/hot.json`);
+    const response = await fetch(`https://api.reddit.com/${category}.json`);
     const data = await response.json();
     setListings(data.data.children);
   }, []);
@@ -64,8 +79,18 @@ export const ContextProvider = (props) => {
       listings,
       searchString,
       handleChangeSearchString,
+      category,
+      categories,
+      handleChangeCategory,
     }),
-    [listings, searchString, handleChangeSearchString]
+    [
+      listings,
+      searchString,
+      handleChangeSearchString,
+      category,
+      categories,
+      handleChangeCategory,
+    ]
   );
 
   return (

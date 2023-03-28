@@ -10,7 +10,7 @@ export default function SearchForm() {
     <TextField
       size="small"
       value={searchString}
-      onChange={handleChangeSearchString}
+      onChange={(event) => handleChangeSearchString(event.target.value)}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
